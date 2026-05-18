@@ -1,287 +1,744 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guillermo-Lescano|Atom1c-B1rd</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;500;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <!-- Background animated blobs -->
+    <div class="blob pink" aria-hidden="true"></div>
+    <div class="blob cyan" aria-hidden="true"></div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <title>atom1c-b1rd</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <canvas id="glitch-canvas" data-astro-cid-gmfompq7></canvas>
-  <script src="glitch.js" type="module"></script>
-
-  <div>
-    <header class="taskbar" data-astro-cid-qmrdf5nj>
-      <span class="logo" data-astro-cid-qmrdf5nj>atom1c-<span class="cyan" data-astro-cid-qmrdf5nj>b1rd</span></span>
-      <nav class="nav" aria-label="Navegación principal" data-astro-cid-qmrdf5nj>
-        <button class="nav-btn active" data-section="home" type="button" data-astro-cid-6ffipval> ~/home </button>
-        <button class="nav-btn" data-section="about" type="button" data-astro-cid-6ffipval> about.md </button>
-        <button class="nav-btn" data-section="projects" type="button" data-astro-cid-6ffipval> projects/ </button>
-        <button class="nav-btn" data-section="skills" type="button" data-astro-cid-6ffipval> skills.sh </button>
-        <button class="nav-btn" data-section="contact" type="button" data-astro-cid-6ffipval> contact </button>
-      </nav>
-      <time class="clock" id="clock" datetime="" data-astro-cid-qmrdf5nj>00:00:00</time>
-    </header>
-
-    <script type="module">
-      function n() {
-        const t = new Date,
-          o = String(t.getHours()).padStart(2, "0"),
-          s = String(t.getMinutes()).padStart(2, "0"),
-          c = String(t.getSeconds()).padStart(2, "0"),
-          e = document.getElementById("clock");
-        e && (e.textContent = `${o}:${s}:${c}`, e.setAttribute("datetime", t.toISOString()))
-      }
-      n();
-      setInterval(n, 1e3);
-    </script>
-
-    <main>
-      <!-- HOME -->
-      <section class="section visible" id="sec-home" data-astro-cid-nto4elzu>
-        <p class="line" data-astro-cid-nto4elzu>
-          <span class="prompt" data-astro-cid-nto4elzu>~$</span>
-          <span class="cmd" data-astro-cid-nto4elzu>whoami</span>
-        </p>
-        <h1 class="big-title" data-astro-cid-nto4elzu>atom1c<span class="cyan" data-astro-cid-nto4elzu>-b1rd</span></h1>
-        <p class="subtitle" data-astro-cid-nto4elzu>// fullstack developer</p>
-        <p class="line" data-astro-cid-nto4elzu>
-          <span class="prompt" data-astro-cid-nto4elzu>~$</span>
-          <span class="cmd" data-astro-cid-nto4elzu>cat greeting.txt</span>
-        </p>
-        <p class="line muted" data-astro-cid-nto4elzu>hola! soy desarrollador fullstack con pasión por las</p>
-        <p class="line muted" data-astro-cid-nto4elzu>experiencias interactivas y el código de bajo nivel.
-          <span class="cursor" aria-hidden="true" data-astro-cid-wdd7lyck></span>
-        </p>
-        <div class="status-bar" data-astro-cid-nto4elzu>
-          <div class="status-item" data-astro-cid-nto4elzu>
-            <span class="label" data-astro-cid-nto4elzu>status: </span>
-            <span class="value" data-astro-cid-nto4elzu>available</span>
+    <!-- Navbar principal -->
+    <nav class="nav">
+      <div class="nav-inner">
+        <div class="nav-logo">
+          <span class="prompt">~/</span>
+          <span>portfolio</span>
+          <span class="cursor"></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <div class="nav-tabs" role="tablist">
+            <button class="nav-tab active" data-section="home" role="tab" data-i18n="nav-home">Home</button>
+            <button class="nav-tab" data-section="about" role="tab" data-i18n="nav-about">AboutMe</button>
+            <button class="nav-tab" data-section="skills" role="tab" data-i18n="nav-skills">Skills</button>
+            <button class="nav-tab" data-section="projects" role="tab" data-i18n="nav-projects">Projects</button>
+            <button class="nav-tab" data-section="contact" role="tab" data-i18n="nav-contact">Contact</button>
           </div>
-          <div class="status-item" data-astro-cid-nto4elzu>
-            <span class="label" data-astro-cid-nto4elzu>location: </span>
-            <span class="value" data-astro-cid-nto4elzu>uy</span>
+          <!-- Selector de idiomas estilo retro terminal -->
+          <div class="nav-lang-selector">
+            <span class="prompt">[</span>
+            <select id="langSelect" class="lang-select">
+              <option value="es">ES</option>
+              <option value="en">EN</option>
+              <option value="it">IT</option>
+              <option value="de">DE</option>
+              <option value="ja">JA</option>
+            </select>
+            <span class="prompt">]</span>
           </div>
-          <div class="status-item" data-astro-cid-nto4elzu>
-            <span class="label" data-astro-cid-nto4elzu>lang: </span>
-            <span class="value" data-astro-cid-nto4elzu>haskell 💗</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contenido principal (Páginas) -->
+    <main class="page">
+      
+      <!-- ==================== HOME ==================== -->
+      <section id="home" class="section active">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">user@lofi ~/home</span>
+          </div>
+          <div class="terminal-body">
+            <div class="line">
+              <span class="prompt">$</span>
+              <span class="path">~/home</span>
+              <span class="output">cat intro.md</span>
+            </div>
+
+            <div class="home-hero" style="margin-top: 18px;">
+              <div class="home-title">
+                <div class="hi" data-i18n="home-hi">&gt; hola_mundo.exe</div>
+                <h1><span class="name">Guillermo Lescano</span></h1>
+                <div class="role" data-i18n="home-role">
+                  <span class="neon-pink">[full-stack dev]</span>
+                  <span class="muted">×</span>
+                  <span class="neon-cyan">ui enthusiast</span>
+                </div>
+
+                <p class="home-desc" data-i18n="home-desc">
+                  Construyo interfaces con alma, mezclando la calidez del lofi con
+                  la precisión del código. Me gustan las animaciones sutiles, las
+                  tipografías monospace y los atajos de teclado.
+                </p>
+
+                <div class="btn-row">
+                  <button class="btn primary" onclick="navigateTo('projects')" data-i18n="home-btn-projects">
+                    <span>&gt;</span> ver proyectos
+                  </button>
+                  <button class="btn ghost" onclick="navigateTo('contact')" data-i18n="home-btn-contact">
+                    contactame_
+                  </button>
+                </div>
+              </div>
+
+              <div class="stats-card">
+                <h3 data-i18n="home-stats-title">~/about/status.log</h3>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-status-k">status</span>
+                  <span class="v">online ●</span>
+                </div>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-location-k">location</span>
+                  <span class="v">internet</span>
+                </div>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-stack-k">stack</span>
+                  <span class="v">Ts · Vue · PhP . RsPack</span>
+                </div>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-coffee-k">coffee</span>
+                  <span class="v">▓▓▓▓▓▓▓░ 88%</span>
+                </div>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-mood-k">mood</span>
+                  <span class="v neon-pink" data-i18n="home-stat-mood-v">lofi ♪</span>
+                </div>
+                <div class="stat-line">
+                  <span class="k" data-i18n="home-stat-uptime-k">uptime</span>
+                  <span class="v">∞</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="line" style="margin-top: 20px;">
+              <span class="prompt">$</span>
+              <span class="output muted" id="homeStatus">
+                esperando input del usuario<span class="blink-cursor"></span>
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT -->
-      <section class="section" id="sec-about" data-astro-cid-ht7f5odl>
-        <h2 class="sec-title" data-astro-cid-ht7f5odl>// about.md</h2>
-        <p class="sec-sub" data-astro-cid-ht7f5odl>cat about.md | less</p>
-        <div class="bio" data-astro-cid-ht7f5odl>
-          Soy <strong data-astro-cid-ht7f5odl>atom1c-b1rd</strong>, desarrollador fullstack que vive entre el frontend
-          creativo y el bajo nivel.<br><br>
-          Me apasiona construir interfaces con <strong data-astro-cid-ht7f5odl>personalidad</strong> y sistemas que
-          funcionen bien por dentro.
-          Creo que el código puede ser <span class="cyan" data-astro-cid-ht7f5odl>poético</span> — de ahí mi amor por
-          <strong data-astro-cid-ht7f5odl>Haskell</strong>.<br><br>
-          Cuando no estoy programando, seguramente estoy escuchando <span class="cyan" data-astro-cid-ht7f5odl>lofi</span>
-          y pensando en cómo hacer algo más elegante.
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section class="section" id="sec-projects" data-astro-cid-jhqnklps>
-        <h2 class="sec-title" data-astro-cid-jhqnklps>// projects/</h2>
-        <p class="sec-sub" data-astro-cid-jhqnklps>ls -la projects/</p>
-        <div class="tabs-wrapper" data-astro-cid-f26q2qhm>
-          <div class="tab-btns" role="tablist" data-astro-cid-f26q2qhm>
-            <button class="tab-btn active" data-tab="fullstack" role="tab" type="button" data-astro-cid-f26q2qhm>fullstack/</button>
-            <button class="tab-btn" data-tab="lowlevel" role="tab" type="button" data-astro-cid-f26q2qhm>low_level/</button>
-            <button class="tab-btn" data-tab="desktop" role="tab" type="button" data-astro-cid-f26q2qhm>desktop/</button>
+      <!-- ==================== ABOUT ME ==================== -->
+      <section id="about" class="section hidden">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">user@lofi ~/about</span>
           </div>
+          <div class="terminal-body">
+            <div class="line">
+              <span class="prompt">$</span>
+              <span class="path">~/about</span>
+              <span class="output">cat README.md</span>
+            </div>
 
-          <div class="tab-panel grid" id="tab-fullstack" data-astro-cid-f26q2qhm>
-            <article class="card" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>Atom1c-Factured</p>
-              <p class="card-desc" data-astro-cid-4izjookm>Saas de gestion y creacion de facturas</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>nuxt</span>
-                <span class="tag" data-astro-cid-zyas3dhk>tailwind</span>
-                <span class="tag" data-astro-cid-zyas3dhk>postgresSQL</span>
-              </div>
-            </article>
-            <article class="card" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>Atom1c-Cost</p>
-              <p class="card-desc" data-astro-cid-4izjookm>SaaS de gestion de costos (personales/empresa con sincronía con atomic-Fracture)</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>nuxt</span>
-                <span class="tag" data-astro-cid-zyas3dhk>tailwind</span>
-                <span class="tag" data-astro-cid-zyas3dhk>postgresSQL</span>
-              </div>
-            </article>
-          </div>
+            <div class="section-title" style="margin-top: 18px;">
+              <h2><span class="neon-pink">#</span> <span data-i18n="about-title">about_me</span></h2>
+            </div>
+            <p class="section-sub" data-i18n="about-sub">// un poco de contexto sobre mí</p>
 
-          <div class="tab-panel grid hidden" id="tab-lowlevel" data-astro-cid-f26q2qhm>
-            <article class="card" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>WayMonad</p>
-              <p class="card-desc" data-astro-cid-4izjookm>Windows Manager Linux inspirado en XMonad con soporte en Wayland</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>Haskell</span>
-                <span class="tag" data-astro-cid-zyas3dhk>C/C++</span>
+            <div class="about-grid">
+              <div class="about-card">
+                <h3 data-i18n="about-bio-title"><span class="neon-cyan">&gt;</span> bio.txt</h3>
+                <p data-i18n="about-bio-p1">
+                  Soy desarrollador full-stack con debilidad por las interfaces con
+                  personalidad. Empecé trasteando con HTML en bloc de notas y hoy
+                  sigo con la misma curiosidad, solo que con mejores herramientas.
+                </p>
+                <p style="margin-top: 12px;" data-i18n="about-bio-p2">
+                  Fuera del teclado: vinilos, fotografía analógica, synths modulares
+                  y largas sesiones de lofi hip-hop radio.
+                </p>
               </div>
-            </article>
-            <article class="card" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>B1rd</p>
-              <p class="card-desc" data-astro-cid-4izjookm>FrameWork multiplataforma en Haskell pensado para el desarrollo multiplataforma</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>Haskell</span>
-                <span class="tag" data-astro-cid-zyas3dhk>C/C++</span>
-              </div>
-            </article>
-          </div>
 
-          <div class="tab-panel grid hidden" id="tab-desktop" data-astro-cid-f26q2qhm>
-            <article class="card wide" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>DrawGic</p>
-              <p class="card-desc" data-astro-cid-4izjookm>Juego de Dibujar circulos magicos implementado en java</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>java</span>
+              <div class="about-card">
+                <h3 data-i18n="about-facts-title"><span class="neon-cyan">&gt;</span> facts.json</h3>
+                <ul class="about-list">
+                  <li><b data-i18n="about-fact-name-k">nombre</b> <span>Guillermo Lescano</span></li>
+                  <li><b data-i18n="about-fact-role-k">rol</b> <span>full-stack dev</span></li>
+                  <li><b data-i18n="about-fact-exp-k">años exp</b> <span data-i18n="about-fact-exp-v">+3</span></li>
+                  <li><b data-i18n="about-fact-base-k">base</b> <span data-i18n="about-fact-base-v">remoto · LATAM</span></li>
+                  <li><b data-i18n="about-fact-stack-k">stack fav</b> <span>TS · Vue · PHP · RsPack</span></li>
+                  <li>
+                    <b data-i18n="about-fact-playing-k">now playing</b>
+                    <span class="neon-pink">♪ idealism - contenance</span>
+                  </li>
+                </ul>
               </div>
-            </article>
-            <article class="card wide" data-astro-cid-4izjookm>
-              <p class="card-title" data-astro-cid-4izjookm>Hackell-InProgress</p>
-              <p class="card-desc" data-astro-cid-4izjookm>MMO de hackers con cliente hecho en "electron", juego programado en "java" y servidores fabricados en "go"</p>
-              <div class="tags" data-astro-cid-4izjookm>
-                <span class="tag" data-astro-cid-zyas3dhk>java</span>
-                <span class="tag" data-astro-cid-zyas3dhk>go</span>
-                <span class="tag" data-astro-cid-zyas3dhk>electron</span>
+
+              <!-- SECCIÓN LOVELY / RETRO SECRETA -->
+              <div class="about-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, rgba(255, 143, 199, 0.05) 0%, rgba(0, 229, 255, 0.02) 100%); border-color: var(--pink);">
+                <h3 class="neon-pink"><span class="neon-pink">♥</span> lovely_tech.cfg</h3>
+                <p style="margin-bottom: 12px; font-size: 14px;" data-i18n="about-lovely-desc">
+                  Hay lenguajes que se usan por trabajo, y otros por puro amor al arte y a la historia de la informática.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                  <div style="border-left: 2px solid var(--pink); padding-left: 12px;">
+                    <span class="neon-pink" style="font-family: var(--term); font-size: 22px;">Haskell</span>
+                    <p style="font-size: 13px;" data-i18n="about-lovely-haskell">
+                      El arte de la programación funcional pura. La elegancia matemática hecha código, recursividad y tipos monádicos.
+                    </p>
+                  </div>
+                  <div style="border-left: 2px solid var(--cyan); padding-left: 12px;">
+                    <span class="neon-cyan" style="font-family: var(--term); font-size: 22px;">Cobol</span>
+                    <p style="font-size: 13px;" data-i18n="about-lovely-cobol">
+                      Vibras vintage y sistemas bancarios. Un shrine a los pioneros de la computación y la belleza del código estructurado clásico.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </article>
-          </div>
-        </div>
+            </div>
 
-        <script type="module">
-          const a = document.querySelectorAll(".tab-btn"),
-            s = document.querySelectorAll(".tab-panel");
-          a.forEach(t => {
-            t.addEventListener("click", () => {
-              const c = t.dataset.tab;
-              a.forEach(e => e.classList.remove("active"));
-              s.forEach(e => e.classList.add("hidden"));
-              t.classList.add("active");
-              document.getElementById("tab-" + c)?.classList.remove("hidden");
-            });
-          });
-        </script>
-      </section>
-
-      <!-- SKILLS -->
-      <section class="section" id="sec-skills" data-astro-cid-pvwutjaz>
-        <h2 class="sec-title" data-astro-cid-pvwutjaz>// skills.sh</h2>
-        <p class="sec-sub" data-astro-cid-pvwutjaz>./skills.sh --list-all</p>
-        <div class="grid" data-astro-cid-mytdaxdf>
-          <div class="col" data-astro-cid-zoxbesni>
-            <p class="col-title" data-astro-cid-zoxbesni>[ frontend ]</p>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> vue / nuxt</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> astro</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> tailwindCss</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> blazor</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> three.js</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> css / html</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> typescript</div>
-          </div>
-          <div class="col" data-astro-cid-zoxbesni>
-            <p class="col-title" data-astro-cid-zoxbesni>[ backend ]</p>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> node / express</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> java</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> php / laravel</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> postgresql</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> rest / graphql</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot accent" data-astro-cid-lqu5hvy4></span> docker</div>
-          </div>
-          <div class="col" data-astro-cid-zoxbesni>
-            <p class="col-title" data-astro-cid-zoxbesni>[ others ]</p>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> haskell 💗</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> cobol</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> C / C++</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> git</div>
-            <div class="skill-item" data-astro-cid-lqu5hvy4><span class="dot" data-astro-cid-lqu5hvy4></span> linux</div>
+            <div class="line" style="margin-top: 22px;">
+              <span class="prompt">$</span>
+              <span class="output muted" id="aboutStatus">exit code 0 · press any tab to continue</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- CONTACT -->
-      <section class="section" id="sec-contact" data-astro-cid-45b47qfu>
-        <h2 class="sec-title" data-astro-cid-45b47qfu>// contact</h2>
-        <p class="sec-sub" data-astro-cid-45b47qfu>ssh atom1c-b1rd@portfolio.dev</p>
-        <div class="form" data-astro-cid-lc5muky5>
-          <input class="field" id="cf-name" type="text" placeholder="nombre_" data-astro-cid-lc5muky5>
-          <input class="field" id="cf-email" type="email" placeholder="email@host.dev_" data-astro-cid-lc5muky5>
-          <textarea class="field" id="cf-msg" rows="4" placeholder="mensaje_" style="resize:none" data-astro-cid-lc5muky5></textarea>
-          <button class="send-btn" id="cf-send" type="button" data-astro-cid-lc5muky5>./send.sh</button>
+      <!-- ==================== SKILLS ==================== -->
+      <section id="skills" class="section hidden">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">user@lofi ~/skills</span>
+          </div>
+          <div class="terminal-body">
+            <div class="line">
+              <span class="prompt">$</span>
+              <span class="path">~/skills</span>
+              <span class="output">ls <span class="neon-cyan" id="skills-dir">web/</span> --color=always</span>
+            </div>
+
+            <div class="section-title" style="margin-top: 18px;">
+              <h2><span class="neon-pink">#</span> <span data-i18n="skills-title">skills.sh</span></h2>
+            </div>
+            <p class="section-sub" data-i18n="skills-sub">// tecnologías con las que trabajo</p>
+
+            <!-- Sub-tabs internas de Skills -->
+            <div class="term-tabs" role="tablist">
+              <button class="term-tab active" data-skill-tab="web" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="skill-tab-web">Web</span>
+              </button>
+              <button class="term-tab" data-skill-tab="devops" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="skill-tab-devops">DevOps</span>
+              </button>
+              <button class="term-tab" data-skill-tab="others" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="skill-tab-others">Others</span>
+              </button>
+            </div>
+
+            <!-- Contenedor Grid de Skills -->
+            <div class="skills-grid" id="skills-container">
+              <!-- WEB SKILLS (Astro, Vue/Nuxt, Js/Ts, TailwindCSS, PhP/Laravel, SQL&NoSQL) -->
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">Astro</span>
+                  <span class="skill-icon neon-cyan">🚀</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">SSG</span>
+                    <span class="tag">Islands</span>
+                  </div>
+                  <span class="skill-pct">90%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">Vue / Nuxt</span>
+                  <span class="skill-icon neon-cyan">💚</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Composition</span>
+                    <span class="tag">SSR</span>
+                  </div>
+                  <span class="skill-pct">88%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">Js / Ts</span>
+                  <span class="skill-icon neon-cyan">TS</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">ES6+</span>
+                    <span class="tag">Strict</span>
+                  </div>
+                  <span class="skill-pct">92%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">TailwindCSS</span>
+                  <span class="skill-icon neon-cyan">🎨</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Utility</span>
+                    <span class="tag">JIT</span>
+                  </div>
+                  <span class="skill-pct">85%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">PhP / Laravel</span>
+                  <span class="skill-icon neon-cyan">🐘</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 82%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">MVC</span>
+                    <span class="tag">APIs</span>
+                  </div>
+                  <span class="skill-pct">82%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="web">
+                <div class="skill-head">
+                  <span class="skill-name">SQL & NoSQL</span>
+                  <span class="skill-icon neon-cyan">💾</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">MySQL</span>
+                    <span class="tag">MongoDB</span>
+                  </div>
+                  <span class="skill-pct">80%</span>
+                </div>
+              </div>
+
+              <!-- DEVOPS SKILLS (Git, Docker, Linux, Apache, Nginx) -->
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">Git</span>
+                  <span class="skill-icon neon-cyan">G</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">GitHub</span>
+                    <span class="tag">CLI</span>
+                  </div>
+                  <span class="skill-pct">88%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">RsPack</span>
+                  <span class="skill-icon neon-cyan">R.S</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Bundler-Project</span>
+                    <span class="tag">Test</span>
+                  </div>
+                  <span class="skill-pct">88%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">Docker</span>
+                  <span class="skill-icon neon-cyan">🐳</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 75%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Compose</span>
+                    <span class="tag">Images</span>
+                  </div>
+                  <span class="skill-pct">75%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">Linux</span>
+                  <span class="skill-icon neon-cyan">$</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Bash</span>
+                    <span class="tag">SSH</span>
+                  </div>
+                  <span class="skill-pct">80%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">Apache</span>
+                  <span class="skill-icon neon-cyan">🪶</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 70%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Server</span>
+                    <span class="tag">Conf</span>
+                  </div>
+                  <span class="skill-pct">70%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="devops">
+                <div class="skill-head">
+                  <span class="skill-name">Nginx</span>
+                  <span class="skill-icon neon-cyan">N</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 78%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Proxy</span>
+                    <span class="tag">SSL</span>
+                  </div>
+                  <span class="skill-pct">78%</span>
+                </div>
+              </div>
+
+              <!-- OTHERS SKILLS (haskell <3, go, N8N, C/C++, Java, Cobol) -->
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name" style="color: var(--pink);">Haskell &lt;3</span>
+                  <span class="skill-icon neon-pink">λ</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 75%; background: linear-gradient(90deg, var(--pink-hot) 0%, var(--pink) 100%);"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag" style="background: rgba(255,79,163,0.15); border-color: rgba(255,79,163,0.3); color: var(--pink);">pure</span>
+                    <span class="tag" style="background: rgba(255,79,163,0.15); border-color: rgba(255,79,163,0.3); color: var(--pink);">lovely</span>
+                  </div>
+                  <span class="skill-pct" style="color: var(--pink);">75%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name">Go</span>
+                  <span class="skill-icon neon-cyan">🐹</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 70%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">CLI</span>
+                    <span class="tag">Concurrency</span>
+                  </div>
+                  <span class="skill-pct">70%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name">N8N</span>
+                  <span class="skill-icon neon-cyan">⚙️</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Automation</span>
+                    <span class="tag">API</span>
+                  </div>
+                  <span class="skill-pct">85%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name">C / C++</span>
+                  <span class="skill-icon neon-cyan">C</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 65%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">Low-Level</span>
+                    <span class="tag">Pointers</span>
+                  </div>
+                  <span class="skill-pct">65%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name">Java</span>
+                  <span class="skill-icon neon-cyan">☕</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 60%;"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag">OOP</span>
+                    <span class="tag">Backend</span>
+                  </div>
+                  <span class="skill-pct">60%</span>
+                </div>
+              </div>
+              <div class="skill" data-skill-cat="others">
+                <div class="skill-head">
+                  <span class="skill-name" style="color: var(--pink);">Cobol</span>
+                  <span class="skill-icon neon-pink">📜</span>
+                </div>
+                <div class="skill-bar"><div class="skill-fill" style="width: 50%; background: linear-gradient(90deg, var(--pink-hot) 0%, var(--pink) 100%);"></div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div class="skill-tags">
+                    <span class="tag" style="background: rgba(255,79,163,0.15); border-color: rgba(255,79,163,0.3); color: var(--pink);">vintage</span>
+                    <span class="tag" style="background: rgba(255,79,163,0.15); border-color: rgba(255,79,163,0.3); color: var(--pink);">finance</span>
+                  </div>
+                  <span class="skill-pct" style="color: var(--pink);">50%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="line" style="margin-top: 22px;">
+              <span class="prompt">$</span>
+              <span class="output muted" id="skillsFooter">
+                <!-- Dinámico vía Vanilla JS/TS -->
+              </span>
+            </div>
+          </div>
         </div>
-        <script>
-          (function () {
-            const EMAIL = "term1nus.atom1c@gmail.com";
-            document.getElementById('cf-send').addEventListener('click', () => {
-              const name = document.getElementById('cf-name').value.trim();
-              const email = document.getElementById('cf-email').value.trim();
-              const msg = document.getElementById('cf-msg').value.trim();
-              if (!name || !email || !msg) return;
-              const subject = encodeURIComponent(`Portfolio — mensaje de ${name}`);
-              const body = encodeURIComponent(`De: ${name} <${email}>\n\n${msg}`);
-              window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-            });
-          })();
-        </script>
       </section>
+
+      <!-- ==================== PROJECTS ==================== -->
+      <section id="projects" class="section hidden">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">user@lofi ~/projects</span>
+          </div>
+          <div class="terminal-body">
+            <div class="line">
+              <span class="prompt">$</span>
+              <span class="path">~/projects</span>
+              <span class="output">cd <span class="neon-cyan" id="projects-dir">frontend/</span> &amp;&amp; ls</span>
+            </div>
+
+            <div class="section-title" style="margin-top: 18px;">
+              <h2><span class="neon-pink">#</span> <span data-i18n="projects-title">projects</span></h2>
+            </div>
+            <p class="section-sub" data-i18n="projects-sub">// cosas en las que he estado trabajando</p>
+
+            <!-- Sub-tabs internas de Proyectos --> 
+            <div class="term-tabs" role="tablist">
+
+              <button class="term-tab active" data-project-tab="frontend" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="proj-tab-fe">FrontEnd</span>
+
+              <button class="term-tab" data-project-tab="fullstack" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="proj-tab-fs">FullStack</span>
+              </button>
+              <button class="term-tab" data-project-tab="others" role="tab">
+                <span class="term-tab-prefix">./</span><span data-i18n="proj-tab-ot">Others</span>
+              </button>
+            </div>
+            <!--Front -->
+            <div class="projects-grid" id="projects-container">
+              <article class="project" data-project-cat="frontend">
+                <div class="project-head">
+                  <div>
+                    <div class="project-num">./project_01</div>
+                    <h3 class="project-name">Encrypt-Chat</h3>
+                  </div>
+                </div>
+                <p class="project-desc" data-i18n="proj-desc-chat">
+                  Chat encriptado end-to-end con tema Neon y soporte para markdown en los mensajes.
+                </p>
+                <div class="project-tech">
+                  <span class="tech">PHP</span>
+                  <span class="tech">JS</span>
+                  <span class="tech">CSS</span>
+                </div>
+                <div class="project-links">
+                  <a class="project-link" href="https://github.com/Atom1c-B1rd/Encrypt-Chat" target="_blank" rel="noreferrer">[repo]</a>
+                </div>
+              </article>
+              <!--FULLSTACK PROJECTS -->
+              <article class="project" data-project-cat="fullstack">
+                <div class="project-head">
+                  <div>
+                    <div class="project-num">./project_02</div>
+                    <h3 class="project-name">Spendy</h3>
+                  </div>
+                </div>
+                <p class="project-desc" data-i18n="proj-desc-portfolio">
+                  Pagina web de Gestion de gastos personales, con dashboard de estadísticas.
+                </p>
+                <div class="project-tech">
+                  <span class="tech">Vue/Nuxt</span>
+                  <span class="tech">TailwindCss</span>
+                  <span class="tech">SupaBase</span>
+                </div>
+                <div class="project-links">
+                  <a class="project-link" href="https://github.com/" target="_blank" rel="noreferrer">[repo]</a>
+                  <a class="project-link" href="https://example.com/" target="_blank" rel="noreferrer">[demo]</a>
+                </div>
+              </article>
+              <!-- OTHERS PROJECTS -->
+              <article class="project" data-project-cat="others">
+                <div class="project-head">
+                  <div>
+                    <div class="project-num">./project_01</div>
+                    <h3 class="project-name">B1rd-FrameWork( inProgress )</h3>
+                  </div>
+                </div>
+                <p class="project-desc" data-i18n="proj-desc-cli">
+                  FrameWork en Haskell para desarrollar en entorno Full-Stack, Inspirado en Nuxt y CLI en Go
+                </p>
+                <div class="project-tech">
+                  <span class="tech">Haskell</span>
+                  <span class="tech">Go</span>
+                </div>
+                <div class="project-links">
+                  <a class="project-link" href="https://github.com/Atom1c-B1rd/haskell-framework-Web-progress" target="_blank" rel="noreferrer">[repo]</a>
+                </div>
+              </article>
+              <article class="project" data-project-cat="others">
+                <div class="project-head">
+                  <div>
+                    <div class="project-num">./project_02</div>
+                    <h3 class="project-name">Atom1c-Lang</h3>
+                  </div>
+                </div>
+                <p class="project-desc" data-i18n="proj-desc-dotfiles">
+                  Lenguaje de programcion, Interpretado en C/C++, basado en Tag xml-like
+                </p>
+                <div class="project-tech">
+                  <span class="tech">C/C++</span>
+                </div>
+                <div class="project-links">
+                  <a class="project-link" href="https://github.com/Atom1c-B1rd/Atom1c-Lang" target="_blank" rel="noreferrer">[repo]</a>
+                </div>
+              </article>
+              <article class="project" data-project-cat="others">
+                <div class="project-head">
+                  <div>
+                    <div class="project-num">./project_03</div>
+                    <h3 class="project-name">Way'Monad</h3>
+                  </div>
+                </div>
+                <p class="project-desc" data-i18n="proj-desc-dotfiles">
+                  Compositor VM Wayland con Haskell, y C/C++ inspirado en Xmonad
+                </p>
+                <div class="project-tech">
+                  <span class="tech">C/C++</span>
+                  <span class="tech">Haskell</span>
+                </div>
+                <div class="project-links">
+                  <a class="project-link" href="https://github.com/Atom1c-B1rd/WayMonad" target="_blank" rel="noreferrer">[repo]</a>
+                </div>
+              </article>
+            </div>
+
+            <div class="line" style="margin-top: 22px;">
+              <span class="prompt">$</span>
+              <span class="output muted" id="projectsFooter">
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CONTACT ==================== -->
+      <section id="contact" class="section hidden">
+        <div class="terminal">
+          <div class="terminal-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-title">user@lofi ~/contact</span>
+          </div>
+          <div class="terminal-body">
+            <div class="line">
+              <span class="prompt">$</span>
+              <span class="path">~/contact</span>
+              <span class="output">./send_mail.sh</span>
+            </div>
+
+            <div class="section-title" style="margin-top: 18px;">
+              <h2><span class="neon-pink">#</span> <span data-i18n="contact-title">contact</span></h2>
+            </div>
+            <p class="section-sub" data-i18n="contact-sub">// hablemos · estoy abierto a proyectos</p>
+
+            <div class="contact-grid">
+              <form class="contact-form" id="contactForm">
+                <div class="field">
+                  <label for="name" data-i18n="contact-label-name">nombre_</label>
+                  <input id="name" required placeholder="tu nombre" data-i18n-placeholder="contact-input-name" />
+                </div>
+                <div class="field">
+                  <label for="email" data-i18n="contact-label-email">email_</label>
+                  <input id="email" type="email" required placeholder="tu@email.com" data-i18n-placeholder="contact-input-email" />
+                </div>
+                <div class="field">
+                  <label for="msg" data-i18n="contact-label-msg">mensaje_</label>
+                  <textarea id="msg" required placeholder="hola, vi tu portfolio y..." data-i18n-placeholder="contact-input-msg"></textarea>
+                </div>
+                <button type="submit" class="btn primary" style="align-self: flex-start;" id="submitBtn" data-i18n="contact-btn-submit">
+                  &gt; enviar
+                </button>
+              </form>
+
+              <div class="contact-info">
+                <h3><span class="neon-cyan">&gt;</span> links.cfg</h3>
+                <a class="contact-link" href="mailto:GuillermoLescano@gmail.com">
+                  <span class="k">email</span> GuillermoLescano@gmail.com
+                </a>
+                <a class="contact-link" href="https://github.com/Atom1c-B1rd" target="_blank" rel="noreferrer">
+                  <span class="k">github</span> @Atom1c-B1rd
+                </a>
+                <a class="contact-link" href="https://www.linkedin.com/in/guillermo-lescano/" target="_blank" rel="noreferrer">
+                  <span class="k">linkedin</span> /in/guillermo-lescano
+                </a>
+                <a class="contact-link" href="https://www.upwork.com/freelancers/~01bc6d96dbf0284d7e?mp_source=share" target="_blank" rel="noreferrer">
+                  <span class="k">UpWork</span> Guillermo Lescano
+                </a>
+                <a class="contact-link" href="https://www.workana.com/freelancer/f2103902d6ae6bd5bf69d9448f635c70" target="_blank" rel="noreferrer">
+                  <span class="k">Workana</span> Guillermo Lescano
+                </a>
+              </div>
+            </div>
+
+            <div class="line" style="margin-top: 22px;">
+              <span class="prompt">$</span>
+              <span class="output muted" id="contactStatus">
+                esperando conexión...<span class="blink-cursor"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
-  </div>
 
-  <script type="module">
-    function r() {
-      const s = document.querySelectorAll("[data-section]"),
-        i = document.querySelectorAll(".section");
-      let c = "home", o = false;
+    <footer class="footer">
+      <span class="muted">&gt; </span>
+      hecho con <span class="heart">♥</span> y mucho café ·
+      <span class="neon-cyan">© <span id="currentYear"></span></span>
+    </footer>
 
-      function a(e) {
-        i.forEach(n => { n.style.opacity = "0"; n.style.pointerEvents = "none"; });
-        const t = document.getElementById("sec-" + e);
-        t && setTimeout(() => {
-          i.forEach(n => n.classList.remove("visible"));
-          t.classList.add("visible");
-          requestAnimationFrame(() => { t.style.opacity = "1"; t.style.pointerEvents = ""; });
-        }, 50);
-      }
-
-      function l(e) {
-        s.forEach(n => n.classList.remove("active"));
-        document.querySelector(`[data-section="${e}"]`)?.classList.add("active");
-      }
-
-      s.forEach(e => {
-        e.addEventListener("click", () => {
-          const t = e.dataset.section;
-          if (!t || t === c || o) return;
-          o = true;
-          c = t;
-          l(t);
-          typeof window.triggerGlitch === "function"
-            ? window.triggerGlitch(() => { a(t); })
-            : a(t);
-          setTimeout(() => { o = false; }, 650);
-        });
-      });
-
-      i.forEach(e => {
-        if (!e.classList.contains("visible")) {
-          e.style.opacity = "0";
-          e.style.pointerEvents = "none";
-        }
-      });
-    }
-
-    document.readyState === "loading"
-      ? document.addEventListener("DOMContentLoaded", r)
-      : r();
-  </script>
-</body>
+    <!-- Script Principal (Vanilla TypeScript/JavaScript) -->
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>
